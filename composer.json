@@ -1,0 +1,29 @@
+{
+  "name": "kubomikita/omega-export",
+  "type": "library",
+  "description": "",
+  "keywords": ["export", "omega", "ikros","alfa","omega","kros"],
+  "license": ["MIT"],
+  "support": {
+    "issues": "https://github.com/kubomikita/omega-export/issues"
+  },
+  "authors": [
+    {
+      "name": "Jakub Mikita",
+      "homepage": "http://www.jakubmikita.sk"
+    }
+  ],
+  "autoload": {
+    "classmap": [
+      "src/"
+    ]
+  },
+  "require": {
+    "php": ">= 7.2.0",
+    "nette/utils": "^3.0",
+    "nette/reflection": "^2.4"
+  },
+  "require-dev": {
+    "tracy/tracy": "^2.5"
+  }
+}
