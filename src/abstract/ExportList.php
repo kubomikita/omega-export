@@ -9,11 +9,13 @@ abstract class ExportList {
 	/** @var ExportItem[] */
 	protected $items = [];
 
-	public function addItem(ExportItem $item){
+	public function addItem(ExportItem $item)
+	{
 		$this->items[] = $item;
 	}
 
-	function getData() : array {
+	function getData() : array
+	{
 		$this->data = [];
 		$this->data[] = $this->getHeader();
 		foreach ($this->items as $item){

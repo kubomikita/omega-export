@@ -3,6 +3,8 @@
 namespace Kubomikita\Kros\Omega;
 
 use DateTimeInterface;
+use JetBrains\PhpStorm\Deprecated;
+use Kubomikita\Kros\Omega\Attributes\Column;
 use Nette\InvalidArgumentException;
 
 /**
@@ -36,252 +38,180 @@ final class Invoice extends ExportItem {
 		self::TYPE_EXPENSE => 'DF'
 	];
 
-	/**
-	 * @required
-	 * @column 1
-	 * @var string
-	 */
+	#[Column(1, required: true)]
 	protected $ident = 'R01'; // 1
-	/**
-	 * @required
-	 * @column 2
-	 * @var int
-	 */
+	#[Column(2, required: true)]
 	protected $number;
-	/**
-	 * @required
-	 * @column 3
-	 * @var string
-	 */
+	#[Column(3, required: true)]
 	protected $partnerName;
-
-	/**
-	 * @required
-	 * @column 4
-	 * @var int
-	 */
+	#[Column(4, required: true)]
 	protected $partnerRegNo;
-	/**
-	 * @required
-	 * @column 5
-	 * @var DateTimeInterface
-	 */
+	#[Column(5, required: true)]
 	protected $dateCreate;
-	/**
-	 * @required
-	 * @column 6
-	 * @var DateTimeInterface
-	 */
+	#[Column(6, required: true)]
 	protected $dateDue;
-	/**
-	 * @required
-	 * @column 7
-	 * @var DateTimeInterface
-	 */
+	#[Column(7, required: true)]
 	protected $dateTax;
-
-	/**
-	 * @required
-	 * @column 18
-	 * @var int
-	 */
+	#[Column(18)]
 	protected $type;
-
-	/**
-	 * @column 19
-	 * @var string
-	 */
+	#[Column(19)]
 	protected $code;
-
-	/**
-	 * @column 20
-	 * @var string
-	 */
+	#[Column(20)]
 	protected $codePrefix;
-
-	/**
-	 * @required
-	 * @column 12
-	 * @var int
-	 */
+	#[Column(12, required: true)]
 	protected $vat10 = 10;
-	/**
-	 * @required
-	 * @column 13
-	 * @var int
-	 */
+	#[Column(13, required: true)]
 	protected $vat20 = 20;
-	/**
-	 * @var int
-	 */
 	protected $vat = 20;
-	/**
-	 * @required
-	 * @column 14
-	 * @var int
-	 */
+	#[Column(14, required: true)]
 	protected $amountVat10 = 0;
-	/**
-	 * @required
-	 * @column 15
-	 * @var int
-	 */
+	#[Column(15, required: true)]
 	protected $amountVat20 = 0;
-	/**
-	 * @required
-	 * @column 11
-	 * @var float
-	 */
-	protected $base = 0;
 
-	/**
-	 * @required
-	 * @column 10
-	 * @var float
-	 */
-	protected $baseNull = 0;
-	/**
-	 * @required
-	 * @column 8
-	 * @var float
-	 */
+	#[Column(8, required: true)]
 	protected $base10 = 0;
-	/**
-	 * @required
-	 * @column 9
-	 * @var float
-	 */
-	protected $base20;
+	#[Column(9, required: true)]
+	protected $base20 = 0;
+	#[Column(10, required: true)]
+	protected $baseNull = 0;
+	#[Column(11, required: true)]
+	protected $baseNoVat = 0;
 
-	/**
-	 * @required
-	 * @column 17
-	 * @var float
-	 */
+	#[Column(17, required: true)]
 	protected $amount;
-
-	/**
-	 * @required
-	 * @column 16
-	 * @var int
-	 */
+	#[Column(16, required: true)]
 	protected $priceCorrection = 0;
-	/**
-	 * @column 32
-	 * @var int
-	 */
+	#[Column(32)]
 	protected $ending;
-	/**
-	 * @column 40
-	 * @var int
-	 */
+	#[Column(40)]
 	protected $currency = "EUR";
-
-	/**
-	 * @column 41
-	 * @var int
-	 */
+	#[Column(41)]
 	protected $currencyQuantity = 1;
-
-
-	/**
-	 * @column 42
-	 * @var float
-	 */
+	#[Column(42)]
 	protected $exchangeRate = 1.0;
-	/**
-	 * @column 43
-	 * @var float
-	 */
+	#[Column(43)]
 	protected $amountCurrency;
-
-	/**
-	 * @column 44
-	 * @var int
-	 */
+	#[Column(44)]
 	protected $documentNumber;
-	/**
-	 * @column 71
-	 * @var int
-	 */
+	#[Column(71)]
 	protected $vs;
-	/**
-	 * @column 46
-	 * @var string
-	 */
+	#[Column(46)]
 	protected $subject;
 
-	/**
-	 * @param int $number
-	 *
-	 * @return Invoice
-	 */
-	public function setNumber( int $number ): Invoice {
+	#[Column(35)]
+	protected $issuedBy;
+	#[Column(36)]
+	protected $constant;
+	#[Column(37)]
+	protected $specific;
+	#[Column(57)]
+	protected $iban;
+	#[Column(56)]
+	protected $swift;
+	#[Column(51)]
+	protected $bankName;
+	#[Column(45)]
+	protected $note;
+	#[Column(31)]
+	protected $noteBefore;
+	#[Column(38)]
+	protected $paymentType;
+
+	private $vatPay = false;
+
+	public function setPaymentType($paymentType): Invoice
+	{
+		$this->paymentType = $paymentType;
+		return $this;
+	}
+	public function setNoteBefore($noteBefore): Invoice
+	{
+		$this->noteBefore = $noteBefore;
+		return $this;
+	}
+
+	public function setIssuedBy($issuedBy): Invoice
+	{
+		$this->issuedBy = $issuedBy;
+		return $this;
+	}
+
+	public function setConstant($constant): Invoice
+	{
+		$this->constant = $constant;
+		return $this;
+	}
+
+	public function setSpecific($specific): Invoice
+	{
+		$this->specific = $specific;
+		return $this;
+	}
+
+	public function setIban($iban): Invoice
+	{
+		$this->iban = $iban;
+		return $this;
+	}
+
+	public function setSwift($swift): Invoice
+	{
+		$this->swift = $swift;
+		return $this;
+	}
+
+	public function setBankName($bankName): Invoice
+	{
+		$this->bankName = $bankName;
+		return $this;
+	}
+
+	public function setNote($note): Invoice
+	{
+		$this->note = $note;
+		return $this;
+	}
+
+	public function setNumber( int|string $number ): Invoice {
 		$this->number = $number;
 		$this->ending = $number;
 		return $this;
 	}
 
-	/**
-	 * @param string $partnerName
-	 *
-	 * @return Invoice
-	 */
+
 	public function setPartnerName( string $partnerName ): Invoice {
 		$this->partnerName = $partnerName;
 
 		return $this;
 }
 
-	/**
-	 * @param int $partnerRegNo
-	 *
-	 * @return Invoice
-	 */
+
 	public function setPartnerRegNo( int $partnerRegNo ): Invoice {
 		$this->partnerRegNo = $partnerRegNo;
 
 		return $this;
 }
 
-	/**
-	 * @param DateTimeInterface $dateCreate
-	 *
-	 * @return Invoice
-	 */
 	public function setDateCreate( DateTimeInterface $dateCreate ): Invoice {
 		$this->dateCreate = $dateCreate;
 
 		return $this;
 }
 
-	/**
-	 * @param DateTimeInterface $dateDue
-	 *
-	 * @return Invoice
-	 */
 	public function setDateDue( DateTimeInterface $dateDue ): Invoice {
 		$this->dateDue = $dateDue;
 
 		return $this;
 }
 
-	/**
-	 * @param DateTimeInterface $dateTax
-	 *
-	 * @return Invoice
-	 */
+
 	public function setDateTax( DateTimeInterface $dateTax ): Invoice {
 		$this->dateTax = $dateTax;
 
 		return $this;
 }
 
-	/**
-	 * @param int $type
-	 *
-	 * @return Invoice
-	 */
+
 	public function setType( int $type ): Invoice {
 		if(!isset(self::TYPES[$type])){
 			throw new InvalidArgumentException('Invoice type with key \''.$type.'\' not exists.');
@@ -292,9 +222,7 @@ final class Invoice extends ExportItem {
 		return $this;
 }
 
-	/**
-	 * @return string
-	 */
+
 	public function getCode(): string {
 		if($this->code === null){
 			$this->code = self::CODES[$this->type];
@@ -302,9 +230,7 @@ final class Invoice extends ExportItem {
 		return $this->code;
 	}
 
-	/**
-	 * @return string
-	 */
+
 	public function getCodePrefix(): string {
 		if($this->codePrefix === null){
 			$this->codePrefix = self::CODES[$this->type];
@@ -312,89 +238,84 @@ final class Invoice extends ExportItem {
 		return $this->codePrefix;
 	}
 
-	/**
-	 * @param string $code
-	 *
-	 * @return Invoice
-	 */
+
 	public function setCode( string $code ): Invoice {
 		$this->code = $code;
 
 		return $this;
 	}
 
-	/**
-	 * @param string $codePrefix
-	 *
-	 * @return Invoice
-	 */
+
 	public function setCodePrefix( string $codePrefix ): Invoice {
 		$this->codePrefix = $codePrefix;
 
 		return $this;
 	}
 
-	/**
-	 * @param float $amount
-	 *
-	 * @return Invoice
-	 */
+	public function setBase(float $base, ?int $vat = null): Invoice {
+
+		$vat = min($vat, 20);
+
+		$property = match ($vat){
+			null => "baseNoVat",
+			0 => "baseNull",
+			10 => "base10",
+			20 => "base20",
+		};
+
+		$this->{$property} = $base;
+		return $this;
+	}
+
+	public function setVatAmount(float $amount, int $vat): Invoice {
+		$vat = min($vat, 20);
+
+		$property = match ($vat){
+			10 => "amountVat10",
+			20 => "amountVat20",
+		};
+		$this->{$property} = $amount;
+		return $this;
+	}
+
+
 	public function setAmount( float $amount ): Invoice {
-		if($this->vat == 20){
-			$this->base20 = round($amount / 1.2, 2);
-			$this->amountVat20 = round($amount-$this->base20, 2);
-		}
-		if($this->vat == 0){
-			$this->base20 = 0;
-			$this->base = $amount;
-		}
 
 		$this->amount = round($amount,4);
 
 		return $this;
 	}
 
-	/**
-	 * @param int $vat
-	 *
-	 * @return Invoice
-	 */
+	#[Deprecated]
 	public function setVat( int $vat ): Invoice {
 		$this->vat = $vat;
 
 		return $this;
 	}
 
-	/**
-	 * @param string $subject
-	 *
-	 * @return Invoice
-	 */
+
 	public function setSubject( string $subject ): Invoice {
 		$this->subject = $subject;
 
 		return $this;
 }
 
-	/**
-	 * @param int $vs
-	 *
-	 * @return Invoice
-	 */
+
 	public function setVs( int $vs ): Invoice {
 		$this->vs = $vs;
 
 		return $this;
 }
 
-	/**
-	 * @param int $documentNumber
-	 *
-	 * @return Invoice
-	 */
 	public function setDocumentNumber( int $documentNumber ): Invoice {
 		$this->documentNumber = $documentNumber;
 
 		return $this;
 }
+
+	public function setVatPay(bool $vatPay): self
+	{
+		$this->vatPay = $vatPay;
+		return $this;
+	}
 }

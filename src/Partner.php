@@ -2,73 +2,36 @@
 
 namespace Kubomikita\Kros\Omega;
 
+use Kubomikita\Kros\Omega\Attributes\Column;
+use Kubomikita\Kros\Omega\Attributes\Required;
+
 /**
  * @group T04
  */
 final class Partner extends ExportItem {
-	/**
-	 * @column 1
-	 * @var string
-	 */
+	#[Column(1, required: true)]
 	protected $ident = 'R01'; // 1
-
-	/**
-	 * @required
-	 * @column 2
-	 * @var string
-	 */
+	#[Column(2, required: true)]
 	protected $name; //2
-	/**
-	 * @required
-	 * @column 3
-	 * @var int
-	 */
+	#[Column(3, required: true)]
 	protected $regNo; //3
-	/**
-	 * @required
-	 * @column 4
-	 * @var string
-	 */
+	#[Column(4, required: true)]
 	protected $address; //4
-	/**
-	 * @column 5
-	 * @var int
-	 */
+	#[Column(5)]
 	protected $zip; // 5
-	/**
-	 * @column 6
-	 * @var string
-	 */
+	#[Column(6)]
 	protected $city; //6
-	/**
-	 * @column 8
-	 * @var string
-	 */
+	#[Column(8)]
 	protected $state; //8
-	/**
-	 * @column 12
-	 * @var bool
-	 */
+	#[Column(12)]
 	protected $person; // 12
-	/**
-	 * @column 13
-	 * @var bool
-	 */
+	#[Column(13)]
 	protected $vatPayer; // 13
-	/**
-	 * @column 14
-	 * @var string
-	 */
+	#[Column(14)]
 	protected $email; // 14
-	/**
-	 * @column 26
-	 * @var string
-	 */
+	#[Column(26)]
 	protected $vatNo; // 26
-	/**
-	 * @column 27
-	 * @var int
-	 */
+	#[Column(27)]
 	protected $taxNo;  //27
 
 	/**
@@ -109,7 +72,7 @@ final class Partner extends ExportItem {
 	 *
 	 * @return Partner
 	 */
-	public function setZip( int $zip ): Partner {
+	public function setZip( string $zip ): Partner {
 		$this->zip = $zip;
 
 		return $this;
@@ -175,7 +138,7 @@ final class Partner extends ExportItem {
 	 *
 	 * @return Partner
 	 */
-	public function setVatNo( string $vatNo ): Partner {
+	public function setVatNo( ?string $vatNo = null ): Partner {
 		$this->vatNo = $vatNo;
 
 		return $this;
@@ -186,7 +149,7 @@ final class Partner extends ExportItem {
 	 *
 	 * @return Partner
 	 */
-	public function setTaxNo( int $taxNo ): Partner {
+	public function setTaxNo( ?int $taxNo = null ): Partner {
 		$this->taxNo = $taxNo;
 
 		return $this;
