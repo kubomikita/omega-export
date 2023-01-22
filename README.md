@@ -4,10 +4,8 @@ Export helper for Kros Omega
 ```
 composer require kubomikita/omega-export
 ```
-## Example usage
+## Example usage of partner export
 ```php
-use Kubomikita\Kros\Omega\Invoice;
-use Kubomikita\Kros\Omega\InvoiceList;
 use Kubomikita\Kros\Omega\Partner;
 use Kubomikita\Kros\Omega\PartnerList;
 
